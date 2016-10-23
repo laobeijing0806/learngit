@@ -7,14 +7,17 @@
 		* {
 			padding: 0;
 			margin: 0;
-			color: #000;
 		}
-		body {
+		body,input,button,select {
 			background: #f7f7f7;
 			font: 12px/1.5 Microsoft YaHei,Tahoma,Helvetica,'SimSun',sans-serif;
+			color: #000;
 		} 
 		a {
 			text-decoration: none;
+		}
+		ol,ul {
+			list-style: none;
 		}
 		h1,h2,h3,h4,h5,h6 {
 			font-size:100%;
@@ -23,6 +26,7 @@
 		#hd {
 			min-width: 960px;
 			border-bottom:0 solid #c2d5e3;
+			background: url(nv.png)0 116px repeat-x;
 			height: 164px;
 		}
 		#hd .wp {
@@ -34,6 +38,7 @@
 		}
 		.hd1 {
 			min-height: 70px;
+			height: 100px;
 		}
 		#hd h2 {
 			position: relative;
@@ -55,12 +60,31 @@
 			line-height: 21px;
 			font-family: "Microsoft YaHei", Tahoma, Helvetica, SimSun, sans-serif;
 		}
+		#QRCodeTest {
+			position: absolute;
+			left: 0px;
+			bottom: -214px;
+			border: 1px solid #fc7050;
+			text-align: center;
+			font-size: 14px;
+			color: #fc7050;
+			z-index: 999;
+			background-color: #fff;
+			padding:12px; 
+			display:none;
+		}
+		.hd1 #downloadAPP:hover div{
+			display:block;
+		}
 		#um {
 			float:right;
 			padding-right: 0;
 			padding-top: 21px;
 			line-height: 2.3;
 			zoom:1; 
+		}
+		#um a:hover {
+    		color: #ff6f3d;
 		}
 		#um, #um a {
 			color: #7c7c7c;
@@ -102,22 +126,103 @@
 			background:url(imghack.png)no-repeat -22px 5px transparent;
 			width: 20px;
 			height: 22px;
-			display: inline-block;
+			display:block;
 			overflow: hidden;
 			text-indent: -9999px;
+		}
+		#searchbar {
+			background: url(search_bg.png)no-repeat 0 0 transparent;
+			width: 339px;
+			float: right;
+			height: 30px;
+			margin-top: 7px;
+		}
+		#scbar_txt {
+			color: #606060;
+			width: 290px;
+			border: none;
+			outline: none;
+			background-color: transparent;
+			padding: 4px 0 0 10px;
+			height: 24px;
+			line-height: 24px;
+		}
+		#scbar_submit {
+			border: none;
+			float: right;
+			width: 20px;
+			height: 27px;
+			cursor: pointer;
+			opacity: 0;
+			margin-right: 12px;
+		}
+		#nv {
+			height: 48px;
+			margin-top: 6px;
+		}
+		#nv li.a {
+			margin-left: 0px;
+			background:#f75733;			
+		}
+		#nv li {
+			float: left;
+			height: 48px;
+			line-height: 48px;
+			font-size: 14px;
+		}
+		#nv li.a a {
+			color: #fff;
+		}
+		#nv li a{
+			color: #fff;
+		}
+		#nv li a {	
+			float: left;
+			padding:0 16px;
+		}
+		#nv li a:hover {
+			background-color: #f75733;
+		}
+		#qmenu {
+			float: right;
+			display: inline;
+			margin:18px 0 0;
+			padding-right: 0px;
+			width:13px;
+			height: 12px;
+			background: url(imghack.png) no-repeat -58px -75px transparent;
+			line-height: 24px;
+			text-align: center;
+			color: #369;
+			font-weight: 700;
+			overflow: hidden;
+		}
+		#nv_fixed {
+			height:48px;
+			width: 100%;
+			background: url(nv.png)repeat-x 0 0;
+			display: none;
+			position: fixed;
+			top:0;
+			opacity: 0.85;
+			z-index:110;
 		}		
 	</style>
 </head>
 <body>
 	<div id="hd">
 		<div class="wp">
-			<div class="hd1">
+			<div class="hd1 c1">
 				<h2>
 					<a href="#" title="论坛">
 						<img src="logo.png" alt="MIUI论坛" border="0" />
 					</a>
 					<div id="downloadAPP">
 						下载APP
+						<div id="QRCodeTest">
+							<img src="app_QRCode.png" style="width:159px;height:159px;"/>
+							<span>扫描下载MIUI论坛APP</span>
+						</div>
 					</div>
 				</h2>
 				<div id="um">
@@ -134,17 +239,36 @@
 								</a>
 							</div>							
 						</div>
-						<div class="hd_d1" style="line-height:28px;">
+						<div class="hd_d1">
 							<a href="#" class="switchwidth"></a>
 						</div>
 					</div>
+					<div style="clear:both"></div>
 					<div id="searchbar">
 						<form>
-							<input type="text" value="搜索" id="srchtxt" placeholder="搜索" />
+							<input type="text" id="scbar_txt" placeholder="搜索" />
+							<input type="submit" id="scbar_submit" />
 						</form>
 					</div>
 				</div>
 			</div>
+			<div id="nv" style="top:0px;left:311.5px;z-index:199;">
+				<a href="#" id="qmenu"></a>
+				<ul>
+					<li class="a" ><a href="#" hidefocus="ture">首页</a></li>
+					<li><a href="#" hidefocus="ture">新帖</a></li>
+					<li><a href="#" hidefocus="ture">版块</a></li>
+					<li><a href="#" hidefocus="ture">MIUI专区</a></li>
+					<li><a href="#" hidefocus="ture">资源分享</a></li>
+					<li><a href="#" hidefocus="ture">谈天说地</a></li>
+					<li><a href="#" hidefocus="ture">俱乐部</a></li>
+					<li><a href="#" hidefocus="ture">极客秀</a></li>
+					<li><a href="#" hidefocus="ture">MIUI下载</a></li>
+					<li><a href="#" hidefocus="ture">橙色星期五</a></li>
+					<li><a href="#" hidefocus="ture">论坛APP</a></li>
+				</ul>
+			</div>
+			<div id="nv_fixed"></div>
 		</div>
 	</div>
 	<div id="wp"></div>
