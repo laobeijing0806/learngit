@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<style type="text/css">
+	* {
+		padding:0;
+		margin:0;
+	}
+	a {
+		text-decoration: none;
+		color: #757575;
+	}
+	a:hover {
+		color: #ff6700;
+		text-decoration: none;
+	}
+	a:active, a:hover {
+		outline: 0;
+	}
+	#wrapper {
+		font:14px/1.5 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
+		color: #333;
+		background-color: #fff;
+		min-width: 1226px;	
+	}
+
+	.site-topbar {
+		position: relative;
+		height: 40px;
+		font-size: 12px;
+		color: #b0b0b0;
+		background: #333;	
+	}
+
+	.container {
+		width: 1226px;
+		margin-left: auto;
+		margin-right: auto; 
+	}
+
+	.site-topbar .top_nav {
+		height: 40px;
+		line-height: 40px;
+		float: left;
+		overflow: hidden;
+	}
+
+	.site-topbar a {
+		color: #b0b0b0;
+	}
+	
+	.site-topbar a:hover {
+		color: #fff;
+	}
+	.site-topbar .sep {
+		margin: 0 .5em;
+		color: #424242;
+		font-family: sans-serif;
+	}
+
+	.site-topbar .top_cart {
+		width: 120px;
+		margin-left: 15px;
+	}
+	.site-topbar .top_cart,.site-topbar .top_info {
+		position: relative;
+		float: right;
+		display: inline;
+		height: 40px;
+	}
+	.site-topbar .top_cart a:hover {
+		background-color: #fff;
+	}
+	.site-topbar .top_cart a:hover div {
+		display: block;
+	}
+	.site-topbar .cart-mini {
+		position: relative;
+		display: block;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		color: #b0b0b0;
+		background: #424242;
+	}
+	.site-topbar .cart-mini i {
+		margin-right: 4px;
+		font-size: 20px;
+		line-height: 20px;
+		vertical-align: -4px;
+	}
+	.iconfont {
+		font-family: "iconfont" !impotant;
+		font-style: normal;
+	}
+	.site-topbar .cart-mini-num {
+		margin-left: -4px;
+	}
+
+	.site-topbar .cart-menu {
+		position: absolute;
+		right: 0;
+		top: 40px;
+		width: 316px;
+		padding: 15px 0 0;
+		color: #424242;
+		background: #fff;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+	}
+	.site-topbar .cartmenu .loading {
+		margin:5px 20px 20px;
+		text-align: center; 
+	}
+	.loading {
+		padding: 20px 0;
+	}
+	.site-topbar .top_info {
+		line-height: 40px;
+	}
+
+	.site-topbar .top_info .link,.site-topbar .top_info .message,.site-topbar .top_info .sep {
+		float: left;
+	}
+	.site-topbar .top_info .link {
+		padding:0 5px;
+		text-align: center;
+	}
+	.site-topbar .message {
+		padding: 0 10px;
+	}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="site-topbar">
+			<div class="container">
+				<div class="top_nav">
+					<a href="#">小米商城</a>
+					<span class="sep">|</span>
+					<a href="#">MIUI</a>
+					<span class="sep">|</span>
+					<a href="#">米聊</a>
+					<span class="sep">|</span>
+					<a href="#">游戏</a>
+					<span class="sep">|</span>
+					<a href="#">多看阅读</a>
+					<span class="sep">|</span>
+					<a href="#">云服务</a>
+					<span class="sep">|</span>
+					<a href="#">金融</a>
+					<span class="sep">|</span>
+					<a href="#">小米网移动版</a>
+					<span class="sep">|</span>
+					<a href="#">问题反馈</a>
+					<span class="sep">|</span>
+					<a href="#">Select Region</a>
+				</div>
+				<div class="top_cart">
+					<a href="#" class="cart-mini" id="minicart">
+						<i class="iconfont"></i>
+						购物车
+						<span class="cart-mini-num">（0）</span>
+					</a>
+					<div class="cart-menu" style="display:none;">
+						<div class="loading">
+						购物车中还没有商品，赶紧选购吧！
+						</div>
+					</div>
+				</div>
+				<div class="top_info">
+					<a href="#" class="link">登录</a>
+					<span class="sep">|</span>
+					<a href="#" class="link">注册</a>
+					<span class="sep">|</span>
+					<span class="message">
+						<a href="#">
+							消息通知
+							<i class="MessageTotal"></i>
+						</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
