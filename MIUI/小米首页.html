@@ -39,7 +39,13 @@
 		}
 		.hd1 {
 			min-height: 70px;
-			height: 100px;
+		}
+		.cl:after {
+			content: ".";
+   			display: block;
+    		height: 0;
+    		clear: both;
+    		visibility: hidden;
 		}
 		#hd h2 {
 			position: relative;
@@ -458,12 +464,243 @@
 			overflow: hidden;
 			text-decoration: none;
 		}
+		.right {
+			font-family: "Microsoft YaHei";
+			float: right;
+			width: 250px;
+		}
+		.big_post_btn {
+			margin-bottom: 10px;
+		}
+		.big_post_btn a {
+			display: inline-block;
+			width: 250px;
+			height: 45px;
+			background: url(post_btn_big.png)0 0 no-repeat rgba(0,0,0,0);
+		}
+		.big_post_btn a:hover{
+			background-position: 0 -50px;
+			border-radius: 0 0 4px 4px;
+		}
+		.punch_card {
+			padding: 15px;
+			border:1px solid #e6e6e6;
+			border-radius: 5px;
+			background-color: #fff;
+			margin-bottom: 10px;
+			width: 218px;
+		}
+		.part {
+			width: 218px;
+		}
+		.pf_sign {
+			background: rgba(0,0,0,0) url(signin_2.png) no-repeat scroll left top;
+		}
+		.pf_sign:hover {
+			background: rgba(0,0,0,0) url(signin_2.png) no-repeat scroll left -80px;
+		}
+		.part_footer {
+			height: 64px;
+			position: relative;
+			width: 218px;
+		}
+		.part_footer p {
+			color: #fff;
+			font-size: 12px;
+			height: 12px;
+			left: 150px;
+			position: absolute;
+			width: 60px;
+		}
+		.pf_num {
+			top:13px;
+		}
+		.pf_day {
+			top:36px;
+		}
+		.pf_sign_link {
+			display: block;
+			height: 64px;
+			position: absolute;
+			width: 122px;
+		}
+		.pf_sign_rank {
+			display: block;
+			height: 64px;
+			left: 122px;
+			position: absolute;
+			width: 96px;
+		}
+		.update_version {
+			width: 218px;
+			margin-bottom: 10px;
+			color: #444444;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			border-radius: 5px;
+			background-color: #fff;
+		}
+		.update_version h2 {
+			font-size: 14px;
+			color: #666;
+			line-height: 21px;
+			margin-bottom: 7px;
+		}
+		.update_version h3 {
+			font-size: 18px;
+			color:#4c4c4c;
+			line-height: 27px;
+			margin-bottom: 18px;
+			font-weight: bold;
+		}
+		.update_version div {
+			width: 218px;
+		}
+		.update_version div a {
+			width: 107px;
+			height: 35px;
+			border-radius: 3px;
+			text-align: center;
+			line-height: 35px;
+			font-size: 12px;
+			color: #fff;
+		}
+		.download_link {
+			float: left;
+			background-color: #2ba9fa;
+		}
+		.version_rec {
+			float: right;
+			background-color: #70c041;
+		}
+		.clearfix:after {
+			display: block;
+			content: "20";
+			height: 0;
+			clear: both;
+			overflow: hidden;
+			visibility: hidden;
+		}
+		.recommend_section {
+			width: 248px;
+			margin-bottom: 10px;
+			color:#444444;
+			padding:15px 0 0;
+			border:1px solid #e6e6e6;
+			border-radius: 5px;
+			background-color: #fff;
+		}
+		.recommend_section .right_title {
+			padding-left: 15px;
+		}
+		.right_title {
+			font-size: 16px;
+			color: #444444;
+			line-height: 24px;
+			margin-bottom: 15px;
+			font-weight: bold;
+		}
+		.clearfix:after {
+			display: block;
+			content: "20";
+			height: 0;
+			clear:both;
+			overflow: hidden;
+			visibility: hidden;
+		}
+		.cl {
+			zoom:1;
+		}
+		.cl:after {
+			content: "0";
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+		}
+		.recommend_section ul {
+			border-top:1px solid #ededed;
+		}
+		.recommend_section .lc {
+			border-right: 1px solid #ededed;
+			width: 123px;
+		}
+		.recommend_section a {
+			color: #666666;
+			font-size: 14px;
+		}
+		.recommend_section li {
+			float: left;
+			overflow: hidden;
+			border-bottom: 1px solid #ededed;
+			height: 43px;
+			line-height: 41px;
+			text-align: center;
+			width: 124px;
+			margin:0;
+		}
+		ul li, .xl li {
+			list-style: none;
+		}
+		.xl2 li {
+			padding: 0;
+		}
+		.all_section {
+			height: 43px;
+			line-height: 41px;
+			text-align: center;
+			display: block;
+		}
+		.hot_activity {
+			width: 218px;
+			margin-bottom: 10px;
+			color: #444444;
+			padding:15px 15px 8px;
+			border:1px solid #e6e6e6;
+			border-radius: 5px;
+			background-color: #fff;
+		}
+		.hot_activity a {
+			margin-bottom: 15px;
+			display: block;
+			text-align: center;
+			color: #666666;
+		}
+		.hot_activity a img {
+			border-radius: 5px;
+			margin-bottom: 5px;
+		}
+		.hot_activity a p {
+			font-size: 12px;
+			color: inherit;
+			line-height: 21px;
+		}
+		.hot_posts {
+			width: 218px;
+			margin-bottom: 10px;
+			color: #444444;
+			padding:15px;
+			border:1px solid #e6e6e6;
+			border-radius: 5px;
+			background-color: #fff;
+		}
+		.hot_posts_article li {
+			height: 24px;
+			overflow: hidden;
+			line-height: 24px;
+			margin-bottom: 5px;
+		}
+		.hot_posts_article li a {
+			color: #909090;
+			font-family: "Microsoft YaHei";
+			font-size: 12px;
+		}
 	</style>
 </head>
 <body>
 	<div id="hd">
 		<div class="wp">
-			<div class="hd1 c1">
+			<div class="hd1 cl">
 				<h2>
 					<a href="#" title="论坛">
 						<img src="logo.png" alt="MIUI论坛" border="0" />
@@ -788,7 +1025,119 @@
 						<a href="#" title="下一页">></a>
 					</div>
 				</div>
-				<div class="right"></div>
+				<div class="right" style="top:58px; left:747px;">
+					<div class="big_post_btn">
+						<a href="#" ></a>
+					</div>
+					<div class="punch_card">
+						<div class="part" style="position:relative;">
+							<div class="part_footer pf_sign">
+								<p class="pf_num">
+									<span>5148342</span>
+								</p>
+								<p class="pf_day">打卡领奖</p>
+								<a href="#" class="pf_sign_link"></a>
+								<a href="#" class="pf_sign_rank pf_sign_link"></a>
+							</div>
+						</div>
+					</div>
+					<div class="update_version">
+						<h2>MIUI已持续更新306周</h2>
+						<h3>
+							<a href="#">最新版：6.10.20</a>
+						</h3>
+						<div class="clearfix">
+							<a href="#" class="download_link">ROM下载</a>
+							<a href="#" class="version_rec">刷机教程</a>
+						</div>
+					</div>
+					<div class="recommend_section">
+						<h2 class="right_title">推荐版块</h2>
+						<div class="clearfix">
+							<div class="module cl xl xl2">
+								<ul>
+									<li class="lc">
+										<a href="#" title="小米5s">小米5s</a>
+									</li>
+									<li>
+										<a href="#" title="小米5s Plus">小米5s Plus</a>
+									</li>
+									<li class="lc">
+										<a href="#" title="小米手机4">小米手机4</a>
+									</li>
+									<li>
+										<a href="#" title="小米笔记本">小米笔记本</a>
+									</li>
+									<li class="lc">
+										<a href="#" title="小米手机5">小米手机5</a>
+									</li>
+									<li>
+										<a href="#" title="小米Max">小米Max</a>
+									</li>
+									<li class="lc">
+										<a href="#" title="贴图自拍">贴图自拍</a>
+									</li>
+									<li>
+										<a href="#" title="汉化资源">汉化资源</a>
+									</li>
+									<li class="lc">
+										<a href="#" title="新功能讨论">新功能讨论</a>
+									</li>
+									<li>
+										<a href="#" title="特殊组申请">特殊组申请</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<a href="#" class="all_section">所有版块&nbsp;></a>
+					</div>
+					<div class="hot_activity" style="display:block;">
+						<h2 class="right_title">热门活动</h2>
+						<a href="#">
+							<img src="photo5.png" title="一起来找“8”！" />
+							<p>一起来找“8”！</p>
+						</a>
+						<a href="#">
+							<img src="photo6.png" title="MIUI论坛APP体验" />
+							<p>MIUI论坛APP体验</p>
+						</a>
+					</div>
+					<div class="hot_posts" style="display:block">
+						<h2 class="right_title">热帖排行</h2>
+						<div class="hot_posts_article">
+							<ul class="u_article" style="margin-top:8px;">
+								<li>
+									<a href="#" title="严禁无关话题灌水及相应处罚规定">严禁无关话题灌水及相应处罚规定</a>
+								</li>
+								<li>
+									<a href="#" title="【机型专区105期】小米Note 2 双曲面发布会相关信息汇总">【机型专区105期】小米Note 2 双曲面发布会相关信息汇总</a>
+								</li>
+								<li>
+									<a href="#" title="XDA搬运魔豆7.0 已更新至10.20">XDA搬运魔豆7.0 已更新至10.20</a>
+								</li>
+								<li>
+									<a href="#" title="上中学咋就这么痛苦">上中学咋就这么痛苦</a>
+								</li>
+								<li>
+									<a href="#" title="12月周末福利活动报名">12月周末福利活动报名</a>
+								</li>
+								<li>
+									<a href="#" title="我的习惯一天一换主题">我的习惯一天一换主题</a>
+								</li>
+								<li>
+									<a href="#" title="米4怎么刷机，没有电脑">米4怎么刷机，没有电脑</a>
+								</li>
+								<li>
+									<a href="#" title="晒桌面，状态栏">晒桌面，状态栏</a>
+								</li>
+								<li>
+									<a href="#" title="小米note顶配版外接U盘">小米note顶配版外接U盘</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="focus_us"></div>
+				</div>
 			</div>
 		</div>
 	</div>
