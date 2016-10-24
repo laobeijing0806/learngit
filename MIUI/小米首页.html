@@ -83,7 +83,7 @@
 			line-height: 2.3;
 			zoom:1; 
 		}
-		#um a:hover {
+		#log:hover {
     		color: #ff6f3d;
 		}
 		#um, #um a {
@@ -206,7 +206,106 @@
 			top:0;
 			opacity: 0.85;
 			z-index:110;
-		}		
+		}
+		.main {
+			padding-top: 30px;
+		}
+		.py_lunbo {
+			width: 960px;
+			height: 350px;
+			margin:0 auto 20px auto;
+			overflow: hidden;
+			position: relative;
+			border-radius: 5px;
+		}
+		.py_lunbo_container {
+			width:9600px;
+			height: 350px;
+			position: absolute;
+			top:0;
+			z-index: 8;
+		}
+		.py_lunbo_container a {
+			display: block;
+			width: 960px;
+			height: 350px;
+			margin: 0;
+		}
+		.py_lunbo_container a img {
+			border-radius: 5px;
+			width: 960px;
+			height: 350px;
+		}
+		a img {
+			border:none;
+		}
+		.prev, .next {
+			position: absolute;
+			width: 22px;
+			height: 41px;
+			top:158px;
+			cursor: pointer;
+			z-index: 99;
+			background: url(geek_4.png) no-repeat;
+		}
+		.prev {
+			left:10px;
+			background-position: 0 -3px; 
+		} 
+		.prev:hover {
+			background-position: 0 -82px;
+		}
+		.next {
+			right: 10px;
+			background-position: -35px -3px;
+		}
+		.next:hover {
+			background-position: -35px -82px;
+		}
+		.points {
+			width: 94px;
+			height: 10px;
+			padding-left: 6px;
+			position: absolute;
+			left:430px;
+			bottom: 15px;
+			z-index: 99;
+			text-align: center;
+		}
+		.points div {
+			height: 10px;
+			width: 10px;
+			border-radius: 5px;
+			background-color: #fff;
+			opacity: 0.7;
+			display: inline-block;
+			margin-right: 6px;
+			cursor: pointer;
+		}
+		.points div.current_pointer {
+			background-color: #fff;
+			opacity: 1;
+		}
+		.banner_links {
+			width:960px;
+			height: 160px;
+			margin:0 auto 20px auto;
+		}
+		.banner_links a {
+			display: block;
+			float: left;
+			margin-right: 12px;
+			width: 312px;
+		}
+		.banner_links a img {
+			width: 310px;
+			height: 158px;
+			border-radius: 5px;
+			border: 1px solid #e3e3e4;
+		}
+		a.banner_links_last {
+			margin-right: 0;
+		}
 	</style>
 </head>
 <body>
@@ -228,7 +327,7 @@
 				<div id="um">
 					<div class="p">
 						<div class="hd_d1">
-							<a href="#">登录</a>
+							<a href="#" id="log">登录</a>
 							<span class="pipe">|</span>
 						</div>
 						<div class="hd_d1" style="margin-right:2px;">
@@ -271,7 +370,38 @@
 			<div id="nv_fixed"></div>
 		</div>
 	</div>
-	<div id="wp"></div>
+	<div id="wp" class="wp">
+		<div class="main">
+			<div class="py_lunbo">
+				<div class="py_lunbo_container">
+					<a href="#">
+						<img src="photo1.jpg" alt="懒卓福利专场" title="懒卓福利专场" />
+					</a>
+				</div>
+				<div class="prev"></div>
+				<div class="next"></div>
+				<div class="points"> 
+					<div class="current_pointer"></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="banner_links">
+				<a href="#">
+					<img src="photo2.png" alt="那些年梁朝伟出演的经典电影，你都看过了吗？" title="那些年梁朝伟出演的经典电影，你都看过了吗？" />
+				</a>
+				<a href="#">
+					<img src="photo3.png" alt="一看就会，MIUI 8 长截图操作解析" title="一看就会，MIUI 8 长截图操作解析" />
+				</a>
+				<a href="#" class="banner_links_last">
+					<img src="photo4.png" alt="小米悄悄上线新功能 不怕网盘被关闭" title="小米悄悄上线新功能 不怕网盘被关闭" />
+				</a>
+			</div>
+			<div class="main_content">
+			</div>
+		</div>
+	</div>
 	<div id="ft"></div>
 	<div id="scrolltop"></div> 
 </body>
