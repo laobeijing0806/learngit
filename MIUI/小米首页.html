@@ -17,6 +17,10 @@
 			text-decoration: none;
 			color: #000;
 		}
+		strong {
+			font-style:normal;
+			font-weight: normal;
+		}
 		ol,ul {
 			list-style: none;
 		}
@@ -24,6 +28,7 @@
 			font-size:100%;
 			font-weight:normal; 
 		}
+		
 		#hd {
 			min-width: 960px;
 			border-bottom:0 solid #c2d5e3;
@@ -195,15 +200,50 @@
 			float: right;
 			display: inline;
 			margin:18px 0 0;
+			position: relative;
+			cursor: pointer;
 			padding-right: 0px;
 			width:13px;
 			height: 12px;
 			background: url(imghack.png) no-repeat -58px -75px transparent;
-			line-height: 24px;
+		}
+		#qmenu_menu {
+			box-shadow: 0 8px 16px -6px gray;
+			border-radius: 5px;
+			background: #f8f8f8;
+			position:absolute;
+			padding: 15px 5px 10px;
+			width: 242px;
+			z-index: 301;
+			right: -2px;
+			top:13px;
+			border:1px solid #d1d1d1;
+			margin-top: 5px;
+			display: none;
+		}
+		#qmenu:hover div {
+			display: block;
+		}
+		.hm {
+			display: block;
 			text-align: center;
-			color: #369;
+		}
+		.pbw {
+			padding-bottom: 20px !important;
+		}
+		.ptm {
+			padding-top: 10px !important;
+		}
+		.xi2, .xi2 a {
+			color: #3893eb;
+		}
+		.blk a {
+			display: inline;
+			padding: 0;
+			border:none;
+		}
+		.xwl {
 			font-weight: 700;
-			overflow: hidden;
 		}
 		#nv_fixed {
 			height:48px;
@@ -229,7 +269,6 @@
 		.py_lunbo_container {
 			width:9600px;
 			height: 350px;
-			position: absolute;
 			top:0;
 			z-index: 8;
 		}
@@ -238,6 +277,9 @@
 			width: 960px;
 			height: 350px;
 			margin: 0;
+		}
+		.py_lunbo_container:hover div {
+			display: block;
 		}
 		.py_lunbo_container a img {
 			border-radius: 5px;
@@ -254,6 +296,7 @@
 			top:158px;
 			cursor: pointer;
 			z-index: 99;
+			display: none;
 			background: url(geek_4.png) no-repeat;
 		}
 		.prev {
@@ -835,7 +878,20 @@
 				</div>
 			</div>
 			<div id="nv" style="top:0px;left:311.5px;z-index:199;">
-				<a href="#" id="qmenu"></a>
+				<div id="qmenu">
+					<div id=qmenu_menu class="p_pop blk">
+							<span class="hm pbw ptm">
+								请
+								<a href="#" class="hidefocus xi2">
+									<strong>登录</strong>
+								</a>
+								后使用快捷导航
+								<br/>
+								没有账号？
+								<a href="#" class="xi2 xwl">注册</a>
+							</span>
+					</div>
+				</div>
 				<ul>
 					<li class="a" ><a href="#" hidefocus="ture">首页</a></li>
 					<li><a href="#" hidefocus="ture">新帖</a></li>
@@ -857,12 +913,13 @@
 		<div class="main">
 			<div class="py_lunbo">
 				<div class="py_lunbo_container">
+					<div class="prev"></div>
+					<div class="next"></div>
 					<a href="#">
 						<img src="photo1.jpg" alt="懒卓福利专场" title="懒卓福利专场" />
 					</a>
 				</div>
-				<div class="prev"></div>
-				<div class="next"></div>
+				
 				<div class="points"> 
 					<div class="current_pointer"></div>
 					<div></div>
