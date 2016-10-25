@@ -762,6 +762,33 @@
 			margin:0 auto;
 			width: 960px;
 		}
+		#scrolltop {
+			position: fixed;
+			bottom: 105px;
+			display: block;
+			margin: -30px 0 0 10px;
+			width: 47px;
+			border:0px solid #cdcdcd;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+		#scrolltop:hover {
+			text-decoration: none;
+		}
+		#scrolltop a {
+			display: block;
+			width: 37px;
+			height: 40px;
+			line-height: 12px;
+			text-align: center;
+			color:#787878;
+			text-decoration: none;
+			background:url(scrolltop.png) no-repeat 0 0;
+			border-top: 0 solid #cdcdcd; 
+		}
+		a.scrolltopa:hover {
+			background-position: -43px 0px !important; 
+		}
 	</style>
 </head>
 <body>
@@ -1303,6 +1330,10 @@
 			</div>
 		</div>
 	</div>
-	<div id="scrolltop"></div>
+	<div id="scrolltop" style="left:1270px;">
+		<span hidefocus="true">
+			<a href="#hd" title="返回顶部" class="scrolltopa"></a>
+		</span>
+	</div>
 </body>
 </html>
