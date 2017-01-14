@@ -1,12 +1,12 @@
 <template>
   <div>
-    <li class="borrowed clearfix" v-for="(borrowedBook, index) in borrowedBooks" track-by="number">
+    <li class="borrowed clearfix" v-for="(borrowedBook, index) in borrowedBooks" :key="borrowedBook.name">
       <h5>{{ borrowedBook.name }}</h5>
       <span class="num">编号：{{ borrowedBook.number }}</span>
       <span class="dayleft">剩余天数：{{ borrowedBook.dayleft }}</span>
       <button class="return" v-on:click="returnBook(borrowedBook, index)">归还</button>
       <button class="renew" v-on:click="renew(borrowedBook)">续借</button>
-    </li>    
+    </li>
   </div>
 </template>
 

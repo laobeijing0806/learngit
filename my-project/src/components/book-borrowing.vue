@@ -7,8 +7,7 @@
       </div>
       <div class="title">
         <span>图书借阅</span>
-        <input type="text" placeholder="搜索图书" id="search" />
-        <button id="submit"></button>
+        <search :prompts @search="search"></search>
       </div>
       <ul class="book-list">
         <book-list :bookList="bookList" @borrowBook="borrowBook"></book-list>
@@ -30,8 +29,9 @@
 </template>
 
 <script>
-import bookList from './components/book-list.vue'
-import myBook from './components/my-book.vue'
+import bookList from './book-list.vue'
+import myBook from './my-book.vue'
+import search from './search.vue'
 
 export default {
   name: 'bookborrowing',
@@ -46,27 +46,84 @@ export default {
         { name: '精通CSS', number: '0006', dayleft: 10 },
         { name: 'DOM编程艺术', number: '0007', dayleft: 10 }
       ],
+      copy: [
+        { name: '设计心理学', number: '0001', dayleft: 10 },
+        { name: '你不知道的JavaScript', number: '0002', dayleft: 10 },
+        { name: '移动应用UI设计模式', number: '0003', dayleft: 10 },
+        { name: '用户体验要素', number: '0004', dayleft: 10 },
+        { name: 'JavaScript高级程序设计', number: '0005', dayleft: 10 },
+        { name: '精通CSS', number: '0006', dayleft: 10 },
+        { name: 'DOM编程艺术', number: '0007', dayleft: 10 }
+      ],
       borrowedBooks: [
-        { name: '小黄书', number: '0009', dayleft: 10 }
-      ]
+        { name: '小黄书', number: '0008', dayleft: 10 }
+      ],
+      keyword: null
     }
   },
   components: {
     'book-list': bookList,
-    'my-book': myBook
+    'my-book': myBook,
+    'search': search
   },
   methods: {
     borrowBook (book, index) {
-      book.dayleft = 10
-      this.borrowedBooks.unshift(book)
-      this.bookList.splice(index, 1)
+      let temp = false
+      for (let i = 0; i < this.borrowedBooks.length; i++) {
+        if (this.borrowedBooks[i].name === book.name) {
+          temp = true
+          break
+        } else {
+          continue
+        }
+      }
+      if (temp) {
+        this.bookList.splice(index, 1)
+      } else {
+        book.dayleft = 10
+        this.borrowedBooks.unshift(book)
+        this.bookList.splice(index, 1)
+      }
     },
     returnBook (borrowedBook, index) {
-      this.borrowedBooks.splice(index, 1)
-      this.bookList.unshift(borrowedBook)
+      let temp = false
+      for (let i = 0; i < this.bookList.length; i++) {
+        if (this.bookList[i].name === borrowedBook.name) {
+          temp = true
+          break
+        } else {
+          continue
+        }
+      }
+      if (temp) {
+        this.borrowedBooks.splice(index, 1)
+      } else {
+        this.borrowedBooks.splice(index, 1)
+        this.bookList.unshift(borrowedBook)
+      }
     },
     renew (borrowedBook) {
       borrowedBook.dayleft += 10
+    },
+    search (keyword) {
+      if (keyword == null || keyword === '') {
+        this.bookList = this.copy
+      } else {
+        this.bookList = this.copy
+        this.bookList = this.bookList.filter(function (item) {
+          return item.name.match(keyword)
+        })
+      }
+    },
+    matches (keyword) {
+      let prompts = [] 
+      for (let i = 0; i < this.bookList.length; i++) {
+        if (this.bookList[i].name.match(keyword)) {
+          prompts = this.bookList[i].name
+        } else {
+          continue
+        }
+      }
     }
   }
 }
@@ -90,14 +147,14 @@ li {
   position: absolute;
   background-color: #efefef;
   min-width: 1316px;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   line-height: 1.15;
 }
 
 .book-borrowing {
   width: 821px;
-  min-height: 700px;
+  min-height: 100vh;
   float: left;
   margin-left: 149px;
   margin-top: 32px;
@@ -143,40 +200,6 @@ li {
   padding-bottom: 6px;
 }
 
-#search {
-  border: 1px solid #c0ccda;
-  border-radius: 4px;
-  float: right;
-  height: 19px;
-  width: 188px;
-  background-color: #f9fafc;
-  outline: none;
-}
-
-input[placeholder] {
-  font-family: Microsoft YaHei;
-  font-size: 14px;
-  color: #99A9BF;
-  line-height: 14px;
-  padding-left: 5px;
-  padding-bottom: 2px;
-}
-
-#submit {
-  border: none;
-  width: 29px;
-  height: 22px;
-  cursor: pointer;
-  padding: 0;
-  position: absolute;
-  right: 0px;
-  top: 1px;
-  border-left: 1px solid #C0CCDA;
-  background: url("./assets/search.png") no-repeat center;
-  background-size: 18px 18px;
-  outline: none;
-}
-
 .book-borrowing .book-list {
   margin-left: 66px;
   margin-top: 37px;
@@ -186,7 +209,7 @@ input[placeholder] {
 .my-book {
   float: left;
   width: 271px;
-  min-height: 700px;
+  min-height: 100vh;
   margin-top: 32px;
   background-color: #fff;
   margin-left: 14px;
@@ -209,7 +232,7 @@ input[placeholder] {
   width: 23px;
   height: 20px;
   display: block;
-  background: url("./assets/mybook.png");
+  background: url("../assets/mybook.png");
   background-size: 23px 20px;
   float: left;
   margin-right: 11px;

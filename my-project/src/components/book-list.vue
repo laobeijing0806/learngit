@@ -1,6 +1,6 @@
 <template>
   <div id="book-list">
-    <li v-for="(book, index) in bookList" track-by="number">
+    <li v-for="(book, index) in bookList" :key="book.name">
       <h5>{{ index+1 }} {{ book.name }}</h5>
       <span>编号：{{ book.number }}</span>
       <button v-on:click="borrowBook(book, index)">借阅</button>
