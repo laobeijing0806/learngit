@@ -7,7 +7,7 @@
       </div>
       <div class="title">
         <span>图书借阅</span>
-        <search :prompts @search="search"></search>
+        <search @search="search"></search>
       </div>
       <ul class="book-list">
         <book-list :bookList="bookList" @borrowBook="borrowBook"></book-list>
@@ -113,16 +113,6 @@ export default {
         this.bookList = this.bookList.filter(function (item) {
           return item.name.match(keyword)
         })
-      }
-    },
-    matches (keyword) {
-      let prompts = [] 
-      for (let i = 0; i < this.bookList.length; i++) {
-        if (this.bookList[i].name.match(keyword)) {
-          prompts = this.bookList[i].name
-        } else {
-          continue
-        }
       }
     }
   }
