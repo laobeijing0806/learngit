@@ -3,21 +3,13 @@ html{
   font-size: 62.5%;
 }
 
-body {
+body, ul, h2, h3, input, textarea, button {
   padding: 0;
   margin: 0;
 }
 
-ul {
-  padding: 0;
-  margin: 0;
-}
-
-li {
+li, a {
   list-style: none;
-}
-
-a {
   text-decoration: none;
 }
 
@@ -30,7 +22,6 @@ a {
 
 .main h2 {
   text-align: center;
-  margin: 0;
   padding-top: 2rem;
   padding-bottom: 0.6rem;
   font-size: 2rem;
@@ -41,79 +32,9 @@ a {
 
 .line {
   display: block;
-  width: 18rem;
+  width: 52%;
   height: 0.1rem;
   margin: 0 auto;
   background: url('./pic/boldLine.png') no-repeat center center;
   background-size: contain;
-}
-
-.content {
-  margin-top: 3rem;
-}
-
-.content ul li {
-  width: 100%;
-  height: 6rem;
-  margin-bottom: 1rem;
-  background-color: #fff;
-}
-
-.user-name {
-  display: block;
-  float: left;
-  margin-left: 2rem;
-  color: #7e7e83;
-  font-size: 1.5rem;
-  line-height: 6rem;
-} 
-
-.deadline {
-  display: block;
-  float: right;
-  margin-right: 1.6rem;
-  font-size: 1.2rem;
-  color: #7e7e83;
-  line-height: 6rem;
-}
-
-.icon {
-  display: block;
-  float: right;
-  margin-top: 2.1rem;
-  width: 0.9rem;
-  height: 1.8rem;
-  margin-right: 2rem;
-  background: url('./pic/arrow.png') no-repeat center center;
-  background-size: contain;
-}
-
-.menu {
-  width: 100%;
-  position: absolute;
-  background-color: #fff;
-  box-shadow: 0 -0.1rem #dbdbe0;
-  bottom: 0;
-}
-
-.menu ul {
-  height: 5rem;
-}
-
-.menu ul li {
-  float: left;
-  width: 33%;
-  text-align: center;
-}
-
-.plus {
-  position: fixed;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  background: url('./pic/button.png') no-repeat center center;
-  background-size: contain;
-  box-shadow: 0 0.2rem 1rem #d2d2d6;
-  right: 7%;
-  bottom: 15%;
 }

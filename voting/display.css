@@ -1,0 +1,57 @@
+.content {
+  margin-top: 2.5rem;
+  height: 64%;
+}
+
+.content ul {
+  height: 100%;
+}
+
+.content ul li {
+  height: 14%;
+  margin-bottom: 4%;
+  background-color: #fff;
+}
+
+.content ul li a {
+  width: 90%;
+  height: 100%;
+  display: table;
+  margin: 0 auto;
+}
+
+.user-name {
+  display: table-cell;
+  vertical-align: middle;
+  color: #7e7e83;
+  width: 45%;
+  font-size: 1.5rem;
+} 
+
+.deadline {
+  display: table-cell;
+  vertical-align: middle;
+  width: 30%;
+  font-size: 1.2rem;
+  color: #7e7e83;
+}
+
+.icon {
+  display: table-cell;
+  vertical-align: middle;
+  width: 3%;
+  background: url('./pic/arrow.png') no-repeat center center;
+  background-size: 0.9rem 1.8rem;
+}
+
+.plus {
+  position: fixed;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: url('./pic/button.png') no-repeat center center;
+  background-size: contain;
+  box-shadow: 0 0.2rem 1rem #d2d2d6;
+  right: 9%;
+  bottom: 15%;
+}
