@@ -1,6 +1,6 @@
 .content {
   margin-top: 2.5rem;
-  height: 64%;
+  height: 70%;
 }
 
 .content ul {
@@ -8,8 +8,8 @@
 }
 
 .content ul li {
-  height: 12%;
-  margin-bottom: 4%;
+  height: 13.5%;
+  margin-bottom: 3%;
   background-color: #fff;
 }
 
@@ -30,7 +30,7 @@
   color: #7e7e83;
   width: 57%;
   font-size: 1.5rem;
-} 
+}
 
 .deadline {
   display: table-cell;
@@ -48,14 +48,87 @@
   background-size: 0.9rem 1.8rem;
 }
 
-.plus {
+.button-animation {
   position: fixed;
-  width: 5rem;
-  height: 5rem;
+  right: 25%;
+  bottom: 15%;
+  z-index: 999;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.button-animation div a {
+  height: 7rem;
+}
+
+.vote-button {
+  position: absolute;
+  bottom: -0.2rem;
+  z-index: 997;
+  width: 6.5rem;
+  height: 7.5rem;
+  background: url('../pic/voteButton.png') no-repeat center center;
+  background-size: 8rem 8rem;
+  cursor: pointer;
+  visibility: hidden;
+   transition: visibility 0.1s linear, transform 0.2s linear;
+}
+
+.questionnaire-button {
+  position: absolute;
+  bottom: -0.2rem;
+  z-index: 998;
+  width: 6.5rem;
+  height: 7.5rem;
+  background: url('../pic/questionButton.png') no-repeat center center;
+  background-size: 8rem 8rem;
+  cursor: pointer;
+  visibility: hidden;
+   transition: visibility 0.1s linear, transform 0.2s linear;
+}
+
+.arise-vote-button {
+  visibility: visible;
+  transform: translate(0, -12.5rem);
+  transition: visibility 0.1s linear, transform 0.2s linear;
+}
+
+.arise-questionnaire-button {
+  visibility: visible;
+  transform: translate(0, -5.8rem);
+  transition: visibility 0.1s linear, transform 0.2s linear;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  min-height: 100vh;
+  opacity: 0.5;
+}
+
+.button {
+  position: absolute;
+  left: 0.1rem;
+  bottom: 0;
+  z-index: 999;
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
   background: url('../pic/button.png') no-repeat center center;
   background-size: contain;
-  box-shadow: 0 0.2rem 1rem #d2d2d6;
-  right: 9%;
-  bottom: 15%;
+  box-shadow: 0 0.7rem 0.8rem #d2d2d6;
+  -webkit-box-shadow: 0 0.25rem 0.8rem #d2d2d6;
+  transition: 0.2s linear;
+  -webkit-transition: 0.2s linear;
+}
+
+.rotation {
+  transition: 0.2s linear;
+  -webkit-transition: 0.2s linear;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  box-shadow: 0.25rem -0.25rem 0.8rem #d2d2d6;
+  -webkit-box-shadow: 0.25rem -0.25rem 0.8rem #d2d2d6;
 }
