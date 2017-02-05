@@ -31,7 +31,11 @@
   font-family: Microsoft YaHei;
   font-size: 2.2rem;
   background-color: #fbd538;
-  border: 1px solid #fbd538;
-  border-radius: 0.5rem;
+  border: 0;
+  border-radius: 5px;
   margin: 30% auto 5%;
+}
+
+button.success {
+  background-color: #fee16b;
 }

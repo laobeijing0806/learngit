@@ -1,12 +1,18 @@
 window.onload = function () {
+  var deviceWidth = document.body.clientHeight
+  var main = document.getElementsByClassName('main')[0]
+  main.style.minHeight = deviceWidth + 'px'
   button()
-} 
+  signIn()
+}
+
 function button () {
   var body = document.getElementsByTagName('body')[0]
   var main = document.getElementsByClassName('main')[0]
   var button = document.getElementsByClassName('button')[0]
   var question = document.getElementsByClassName('questionnaire-button')[0]
   var vote = document.getElementsByClassName('vote-button')[0]
+  if (!button) return false
   button.onclick = function () {
     var className = button.getAttribute('class')
     if (className == "button") {
@@ -29,5 +35,14 @@ function button () {
       main.style.filter = 'blur(0px)'
       body.removeChild(mask)
     }
+  }
+}
+
+function signIn() {
+  var signIn = document.getElementsByTagName('button')[0]
+  if (!signIn) return false 
+  signIn.onclick = function () {
+    signIn.innerHTML = '签到成功'
+    signIn.setAttribute('class', 'success')
   }
 }

@@ -42,7 +42,6 @@
 
 .icon {
   display: table-cell;
-  vertical-align: middle;
   width: 3%;
   background: url('../pic/arrow.png') no-repeat center center;
   background-size: 0.9rem 1.8rem;
@@ -89,13 +88,13 @@
 .arise-vote-button {
   visibility: visible;
   transform: translate(0, -12.5rem);
-  transition: visibility 0.1s linear, transform 0.2s linear;
+  transition: visibility 0.1s linear, transform 0.1s linear;
 }
 
 .arise-questionnaire-button {
   visibility: visible;
   transform: translate(0, -5.8rem);
-  transition: visibility 0.1s linear, transform 0.2s linear;
+  transition: visibility 0.1s linear, transform 0.1s linear;
 }
 
 .mask {
