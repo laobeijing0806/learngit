@@ -69,7 +69,8 @@
   background-size: 8rem 8rem;
   cursor: pointer;
   visibility: hidden;
-   transition: visibility 0.1s linear, transform 0.2s linear;
+  transition: visibility 0.1s linear, transform 0.2s linear;
+  -webkit-transition: visibility 0.1s linear, transform 0.2s linear;
 }
 
 .questionnaire-button {
@@ -82,19 +83,22 @@
   background-size: 8rem 8rem;
   cursor: pointer;
   visibility: hidden;
-   transition: visibility 0.1s linear, transform 0.2s linear;
+  transition: visibility 0.1s linear, transform 0.2s linear;
+  -webkit-transition: visibility 0.1s linear, transform 0.2s linear;
 }
 
 .arise-vote-button {
   visibility: visible;
   transform: translate(0, -12.5rem);
-  transition: visibility 0.1s linear, transform 0.1s linear;
+  transition: visibility 0.1s linear, transform 0.2s linear;
+  -webkit-transition: visibility 0.1s linear, transform 0.2s linear;
 }
 
 .arise-questionnaire-button {
   visibility: visible;
   transform: translate(0, -5.8rem);
-  transition: visibility 0.1s linear, transform 0.1s linear;
+  transition: visibility 0.1s linear, transform 0.2s linear;
+  -webkit-transition: visibility 0.1s linear, transform 0.2s linear;
 }
 
 .mask {

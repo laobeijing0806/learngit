@@ -1,7 +1,7 @@
 window.onload = function () {
   var deviceWidth = document.body.clientHeight
   var main = document.getElementsByClassName('main')[0]
-  main.style.minHeight = deviceWidth + 'px'
+  main.style.height = deviceWidth + 'px'
   button()
   signIn()
 }
@@ -40,9 +40,11 @@ function button () {
 
 function signIn() {
   var signIn = document.getElementsByTagName('button')[0]
+  var addOnePoint = document.getElementsByClassName('bonus-point')[0]
   if (!signIn) return false 
   signIn.onclick = function () {
-    signIn.innerHTML = '签到成功'
+    signIn.innerHTML = '签到成功!'
     signIn.setAttribute('class', 'success')
+    addOnePoint.style.display = 'block'
   }
 }
