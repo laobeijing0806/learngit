@@ -41,7 +41,7 @@ function button () {
 function signIn() {
   var signIn = document.getElementsByTagName('button')[0]
   var addOnePoint = document.getElementsByClassName('bonus-point')[0]
-  if (!signIn) return false 
+  if (!signIn) return false
   signIn.onclick = function () {
     signIn.innerHTML = '签到成功!'
     signIn.setAttribute('class', 'success')
