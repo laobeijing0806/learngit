@@ -1,22 +1,38 @@
-html{
+html {
   font-family: Microsoft YaHei;
   font-size: 62.5%;
 }
 
-body, ul, h2, h3, input, textarea, button, html {
+body,
+ul,
+h2,
+h3,
+input,
+textarea,
+button,
+html {
   padding: 0;
   margin: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
-li, a, button {
+li,
+a,
+button {
   display: block;
   list-style: none;
   text-decoration: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.main-page {
+  width: 100%;
+  background-color: #efeff4;
+  position: relative;
 }
 
 .main {
@@ -26,7 +42,7 @@ li, a, button {
   position: relative;
 }
 
-.main h2 {
+.main h2, .main-page h2 {
   text-align: center;
   padding-top: 2rem;
   padding-bottom: 0.6rem;
@@ -45,11 +61,12 @@ li, a, button {
   background-size: contain;
 }
 
+
 /*菜单样式*/
 
 .menu {
   width: 100%;
-  position: absolute;
+  position: fixed;
   background-color: #fff;
   box-shadow: 0 -0.1rem #dbdbe0;
   bottom: 0;
@@ -109,19 +126,19 @@ li, a, button {
   background-size: 5.7rem 7.5rem;
 }
 
+
 /*问卷和投票列表页面样式*/
 
 .content {
   margin-top: 2.5rem;
-  height: 70%;
 }
 
 .content ul {
-  height: 100%;
+  padding-bottom: 15rem;
 }
 
 .content ul li {
-  height: 13.5%;
+  height: 6rem;
   margin-bottom: 3%;
   background-color: #fff;
 }
@@ -203,6 +220,7 @@ li, a, button {
 .arise-vote-button {
   visibility: visible;
   transform: translate(0, -12.5rem);
+  -webkit-transform: translate(0, -12.5rem);
   transition: visibility 0.1s linear, transform 0.2s linear;
   -webkit-transition: visibility 0.1s linear, transform 0.2s linear;
 }
@@ -210,6 +228,7 @@ li, a, button {
 .arise-questionnaire-button {
   visibility: visible;
   transform: translate(0, -5.8rem);
+  -webkit-transform: translate(0, -5.8rem);
   transition: visibility 0.1s linear, transform 0.2s linear;
   -webkit-transition: visibility 0.1s linear, transform 0.2s linear;
 }
@@ -220,8 +239,12 @@ li, a, button {
   left: 0;
   z-index: 5;
   width: 100%;
-  min-height: 100vh;
-  opacity: 0.5;
+  height: 100%;
+}
+
+.blur {
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
 }
 
 .button {
@@ -256,13 +279,13 @@ li, a, button {
   width: 70%;
   height: 40%;
   margin: 0 auto;
-  padding-top: 20%;
+  padding-top: 18%;
   text-align: center;
 }
 
 .coin {
-  width: 70%;
-  height: 70%;
+  width: 67%;
+  height: 67%;
   margin: 0 auto;
   position: relative;
 }
@@ -273,7 +296,7 @@ li, a, button {
   height: 100%;
   background: url('../pic/coin.png') no-repeat center center;
   background-size: contain;
- }
+}
 
 .shining {
   width: 60%;
@@ -298,7 +321,8 @@ li, a, button {
   width: 85%;
   height: 20%;
   position: relative;
-  margin: 30% auto 5%;
+  margin: 0 auto;
+  top: 30%;
 }
 
 .signInButton button {
@@ -329,6 +353,7 @@ button.success {
   top: -1rem;
   right: -1rem;
 }
+
 
 /*我的主页样式*/
 
@@ -379,7 +404,7 @@ button.success {
 
 .options ul li {
   height: 20%;
-  margin-bottom: 2%;
+  margin-bottom: 2.5%;
   background-color: #fff;
 }
 
@@ -405,6 +430,7 @@ button.success {
   background-size: 0.9rem 1.8rem;
 }
 
+
 /*发布问卷和投票页面样式*/
 
 .release {
@@ -416,6 +442,7 @@ button.success {
 }
 
 .release h3 {
+  display: inline-block;
   font-size: 1.6rem;
   font-weight: normal;
   color: #1aad19;
@@ -429,16 +456,20 @@ button.success {
   outline: none;
   width: 86%;
   height: 30%;
-  resize:none;
+  resize: none;
   border: none;
   overflow: hidden;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .release input {
+  text-align: center;
   margin-left: 4%;
   outline: none;
-  width: 86%;
-  margin-top: 1rem;
+  width: 65%;
+  font-size: 1.6rem;
+  font-family: 'Microsoft YaHei';
+  letter-spacing: 0.1rem;
   border: none;
 }
 
@@ -453,6 +484,7 @@ button.success {
   width: 10rem;
   height: 3.8rem;
   color: #fff;
+  font-size: 1.5rem;
   font-family: Microsoft YaHei;
   border: 1px solid #56db55;
   border-radius: 5px;
