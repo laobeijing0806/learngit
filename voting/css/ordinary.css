@@ -134,7 +134,7 @@ button {
 }
 
 .content ul {
-  padding-bottom: 15rem;
+  padding-bottom: 10rem;
 }
 
 .content ul li {
@@ -359,18 +359,15 @@ button.success {
 
 .header {
   width: 100%;
-  height: 30%;
   padding-top: 5%;
   text-align: center;
 }
 
 .user-photo {
-  width: 50%;
-  height: 70%;
   display: block;
+  width: 13rem;
+  height: 13rem;
   margin: 0 auto;
-  background: url('../pic/user_icon.png') no-repeat center;
-  background-size: contain;
 }
 
 .user-name {
@@ -404,7 +401,7 @@ button.success {
 
 .options ul li {
   height: 20%;
-  margin-bottom: 2.5%;
+  margin-bottom: 2%;
   background-color: #fff;
 }
 

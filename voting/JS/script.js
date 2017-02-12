@@ -8,8 +8,84 @@ window.onload = function () {
   } else {
     body.style.minHeight = deviceWidth + 'px'
   }
+  var request = new XMLHttpRequest ()
+  request.open('GET', '/user/info', true)
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var userName = request.responseText.nickname
+      display(userName)
+    }
+  }
+  request.send(null)
+  tapEvent()
+  signIn()
+}
 
-  // tap事件
+//控制按钮旋转效果和列表渲染
+function display(userName) {
+  var body = document.getElementsByTagName('body')[0]
+  var main = document.getElementsByClassName('main-page')[0]
+  var button = document.getElementsByClassName('button')[0]
+  var question = document.getElementsByClassName('questionnaire-button')[0]
+  var vote = document.getElementsByClassName('vote-button')[0]
+  if (!button) return false
+  var request = new XMLHttpRequest()
+  request.open('GET', '/all', true)
+  request.send(null)
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var list = document.getElementById('list')
+      for (var i = 0; i < request.responseText.result.num; i++) {
+        var items = document.createElement('li')
+        var links = document.createElement('a')
+        var userRelease = document.createElement('span')
+        var deadline = document.createElement('span')
+        var icon = document.createElement('span')
+        userRelease.setAttribute('class', 'user-release')
+        if (request.responseText.result.qvs[0].type === "wenjuan") {
+          userRelease.innerHTML = userName + '发布的问卷' 
+        } else {
+          userRelease.innerHTML = userName + '发布的投票'
+        }
+        deadline.setAttribute('class', 'deadline')
+        deadline.innerHTML = '(' + request.responseText.result.qvs[0].last_change_time + '到期)' 
+        icon.setAttribute('class', 'icon')
+        links.appendChild(userRelease)
+        links.appendChild(deadline)
+        links.appendChild(icon)
+        links.setAttribute('href', request.responseText.result.qvs[0].data)
+        items.appendChild(links)
+        list.appendChild(items)
+      }
+    }
+  }
+  button.addTapEvent(function () {
+    var className = button.getAttribute('class')
+    if (className === "button") {
+      button.setAttribute('class', 'button rotation')
+      vote.setAttribute('class', 'vote-button arise-vote-button')
+      question.setAttribute('class', 'questionnaire-button arise-questionnaire-button')
+      main.setAttribute('class', 'main-page blur')
+      if (document.getElementsByClassName('mask')[0]) {
+        return false
+      } else {
+        var mask = document.createElement('div')
+        body.appendChild(mask)
+        mask.setAttribute('class', 'mask')
+      }
+    } else {
+      var mask = document.getElementsByClassName('mask')[0]
+      button.setAttribute('class', 'button')
+      vote.setAttribute('class', 'vote-button')
+      question.setAttribute('class', 'questionnaire-button')
+      main.setAttribute('class', 'main-page')
+      body.removeChild(mask)
+    }
+  })
+}
+
+// tap事件
+function tapEvent() {
   if (!HTMLElement.prototype.addTapEvent) {
     HTMLElement.prototype.addTapEvent = function (callback) {
       var tapStartTime = 0,
@@ -44,49 +120,87 @@ window.onload = function () {
       })
     }
   }
-  button()
-  signIn()
 }
-//控制按钮旋转效果
-function button() {
-  var body = document.getElementsByTagName('body')[0]
-  var main = document.getElementsByClassName('main-page')[0]
-  var button = document.getElementsByClassName('button')[0]
-  var question = document.getElementsByClassName('questionnaire-button')[0]
-  var vote = document.getElementsByClassName('vote-button')[0]
-  if (!button) return false
-  button.addTapEvent(function () {
-    var className = button.getAttribute('class')
-    if (className == "button") {
-      button.setAttribute('class', 'button rotation')
-      vote.setAttribute('class', 'vote-button arise-vote-button')
-      question.setAttribute('class', 'questionnaire-button arise-questionnaire-button')
-      main.setAttribute('class', 'main-page blur')
-      if (document.getElementsByClassName('mask')[0]) {
-        return false
-      } else {
-        var mask = document.createElement('div')
-        body.appendChild(mask)
-        mask.setAttribute('class', 'mask')
-      }
-    } else {
-      var mask = document.getElementsByClassName('mask')[0]
-      button.setAttribute('class', 'button')
-      vote.setAttribute('class', 'vote-button')
-      question.setAttribute('class', 'questionnaire-button')
-      main.setAttribute('class', 'main-page')
-      body.removeChild(mask)
-    }
-  })
-}
+
 //签到
 function signIn() {
   var signIn = document.getElementsByTagName('button')[0]
   var addOnePoint = document.getElementsByClassName('bonus-point')[0]
-  if (!signIn || signIn.innerHTML != '签到') return false
-  signIn.addTapEvent(function () {
-    signIn.innerHTML = '签到成功!'
-    signIn.setAttribute('class', 'success')
-    addOnePoint.style.display = 'block'
-  })
+  if (!signIn || signIn.innerHTML !== '签到') return false
+  var request = new XMLHttpRequest()
+  request.open('GET', '/check', true)
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var time = new Date(request.responseText.last_check_time)
+      if (request.responseText.checked !== true) {
+        signIn.addTapEvent(function () {
+          signIn.innerHTML = '签到成功!'
+          signIn.setAttribute('class', 'success')
+          addOnePoint.style.display = 'block'
+          request.open('POST', '/check', true)
+          request.send(null)
+        })
+      } else {
+        signIn.innerHTML = '签到成功!'
+        signIn.setAttribute('class', 'success')
+        addOnePoint.style.display = 'block'
+        signIn.setAttribute('disabled', 'disabled')
+      }
+    }
+  }
+  request.send(null)
+}
+
+//刷新用户信息
+function refreshUserInfo() {
+  if (!document.getElementById('points')) return false
+  var request = new XMLHttpRequest()
+  if (request) {
+    request.open('GET', '/user/info', true)
+    request.onreadystatechange = function () {
+      if (request.readyState === 4 && request.status === 200) {
+        var photo = document.getElementsByClassName('user-photo')[0]
+        var name = document.getElementsByClassName('user-name')[0].innerHTML
+        var point = document.getElementById('points').innerHTML
+        photo.setAttribute('src', request.responseText.headimg)
+        name = request.responseText.nickname
+        point = request.responseText.points
+      } else {
+        return false
+      }
+    }
+    request.send(null)
+  }
+}
+
+function release() {
+  var release = document.getElementById('release')
+  if (!release) return false
+  var links = document.getElementsByTagName('textarea')[0].value
+  var data
+  var request = new XMLHttpRequest()
+  request.open('POST', '/new', true)
+  if (release.innerHTML === "发布问卷") {
+    data = {
+      type: "question",
+      data: links
+    }
+  } else {
+    data = {
+      type: "vote",
+      data: links
+    }
+  }
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      if (request.responseText.err === 0) {
+        if (release.innerHTML === "发布问卷") {
+          window.open('questionnaire.html', '_self')
+        } else {
+          window.open('vote.html', '_self')
+        }
+      }
+    }
+  }
+  request.send(data)
 }
