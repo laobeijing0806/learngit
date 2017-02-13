@@ -15,6 +15,11 @@ html {
   margin: 0;
 }
 
+a, img {
+  -webkit-touch-callout: none;
+  outline: none;
+}
+
 html,
 body {
   height: 100%;

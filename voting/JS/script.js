@@ -8,33 +8,21 @@ window.onload = function () {
   } else {
     body.style.minHeight = deviceWidth + 'px'
   }
-  var request = new XMLHttpRequest ()
-  request.open('GET', '/user/info', true)
-  request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
-      var userName = request.responseText.nickname
-      display(userName)
-    }
-  }
-  request.send(null)
   tapEvent()
+  button()
   signIn()
+  deleteItem()
 }
 
-//控制按钮旋转效果和列表渲染
+//列表渲染
 function display(userName) {
-  var body = document.getElementsByTagName('body')[0]
-  var main = document.getElementsByClassName('main-page')[0]
-  var button = document.getElementsByClassName('button')[0]
-  var question = document.getElementsByClassName('questionnaire-button')[0]
-  var vote = document.getElementsByClassName('vote-button')[0]
-  if (!button) return false
+  var list = document.getElementById('list')
+  if (!list) return false
   var request = new XMLHttpRequest()
   request.open('GET', '/all', true)
   request.send(null)
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-      var list = document.getElementById('list')
       for (var i = 0; i < request.responseText.result.num; i++) {
         var items = document.createElement('li')
         var links = document.createElement('a')
@@ -59,6 +47,16 @@ function display(userName) {
       }
     }
   }
+}
+
+// 控制按钮旋转效果
+function button() {
+  var body = document.getElementsByTagName('body')[0]
+  var main = document.getElementsByClassName('main-page')[0]
+  var button = document.getElementsByClassName('button')[0]
+  var question = document.getElementsByClassName('questionnaire-button')[0]
+  var vote = document.getElementsByClassName('vote-button')[0]
+  if (!button) return false
   button.addTapEvent(function () {
     var className = button.getAttribute('class')
     if (className === "button") {
@@ -131,7 +129,6 @@ function signIn() {
   request.open('GET', '/check', true)
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-      var time = new Date(request.responseText.last_check_time)
       if (request.responseText.checked !== true) {
         signIn.addTapEvent(function () {
           signIn.innerHTML = '签到成功!'
@@ -172,7 +169,7 @@ function refreshUserInfo() {
     request.send(null)
   }
 }
-
+//发布问卷或投票
 function release() {
   var release = document.getElementById('release')
   if (!release) return false
@@ -203,4 +200,43 @@ function release() {
     }
   }
   request.send(data)
+}
+//长按删除列表
+function deleteItem() {
+  var time = 0
+  var list = document.getElementById('list')
+  if (!list) return false
+  var item = list.getElementsByTagName('li')
+  for (var i = 0; i < item.length; i++) {
+    item[i].addEventListener('touchstart', function () {
+      time = setTimeout(remove, 500, this)
+      return false
+    })
+    item[i].addEventListener('touchend', function () {
+      clearTimeout(time)
+      if (time != 0) {
+        var links = this.getElementsByTagName('a')[0].getAttribute('href')
+        var skip = confirm('确认前往该页面吗？')
+        if (skip) {
+          window.open(links, '_self')
+        } else {
+          return false
+        }
+      }
+      return false
+    })
+    item[i].addEventListener('touchmove', function () {
+      clearTimeout(time)
+      time = 0
+    })
+  }
+  function remove(elem) {
+    time = 0
+    var k = confirm('确定删除吗？')
+    if (k) {
+      list.removeChild(elem)
+    } else {
+      return false
+    }
+  }
 }
