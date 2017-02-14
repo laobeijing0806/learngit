@@ -11,7 +11,9 @@ window.onload = function () {
   tapEvent()
   display()
   button()
+  refreshUserInfo()
   signIn()
+  release()
   deleteItem()
 }
 
@@ -39,6 +41,8 @@ function display() {
           renderList(i)
         }
       }
+    } else {
+      return false
     }
   }
   //渲染列表
@@ -55,7 +59,7 @@ function display() {
       userRelease.innerHTML = jsonobj.result.qvs[i].nickname + '发布的投票'
     }
     deadline.setAttribute('class', 'deadline')
-    deadline.innerHTML = '(' + JSON.parse(jsonobj.result.qvs[i].data).date + '到期)' 
+    deadline.innerHTML = '（' + JSON.parse(jsonobj.result.qvs[i].data).date + '到期）' 
     icon.setAttribute('class', 'icon')
     links.appendChild(userRelease)
     links.appendChild(deadline)
@@ -146,7 +150,8 @@ function signIn() {
   request.open('GET', '/check', true)
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-      if (request.responseText.checked !== true) {
+      var jsonobj = JSON.parse(request.responseText)
+      if (jsonobj.checked !== true) {
         signIn.addTapEvent(function () {
           signIn.innerHTML = '签到成功!'
           signIn.setAttribute('class', 'success')
@@ -160,6 +165,8 @@ function signIn() {
         addOnePoint.style.display = 'block'
         signIn.setAttribute('disabled', 'disabled')
       }
+    } else {
+      return false
     }
   }
   request.send(null)
@@ -169,54 +176,70 @@ function signIn() {
 function refreshUserInfo() {
   if (!document.getElementById('points')) return false
   var request = new XMLHttpRequest()
-  if (request) {
-    request.open('GET', '/user/info', true)
-    request.onreadystatechange = function () {
-      if (request.readyState === 4 && request.status === 200) {
-        var photo = document.getElementsByClassName('user-photo')[0]
-        var name = document.getElementsByClassName('user-name')[0].innerHTML
-        var point = document.getElementById('points').innerHTML
-        photo.setAttribute('src', request.responseText.headimg)
-        name = request.responseText.nickname
-        point = request.responseText.points
-      } else {
-        return false
-      }
+  request.open('GET', '/user/info', true)
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var jsonobj = JSON.parse(request.responseText)
+      var photo = document.getElementsByClassName('user-photo')[0]
+      var name = document.getElementsByClassName('user-name')[0]
+      var point = document.getElementById('points')
+      photo.setAttribute('src', jsonobj.headimg)
+      name.innerHTML = jsonobj.nickname
+      point.innerHTML = jsonobj.points
+    } else {
+      return false
     }
-    request.send(null)
   }
+  request.send(null)
 }
+
 //发布问卷或投票
 function release() {
   var release = document.getElementById('release')
   if (!release) return false
-  var links = document.getElementsByTagName('textarea')[0].value
-  var data
-  var request = new XMLHttpRequest()
-  request.open('POST', '/new', true)
-  if (release.innerHTML === "发布问卷") {
-    data = {
-      "type": "question",
-      "data": "{\"deadline\": \"2017.2.31\", \"links\": \"http://www.baidu.com\"}"
+  var link = document.getElementsByTagName('textarea')[0]
+  var date = document.getElementsByTagName('input')[0]
+  var jsonData = {}, restoreData = {}
+  var jsonString
+  release.addTapEvent(function () {
+    var request = new XMLHttpRequest()
+    request.open('POST', '/new', true)
+    if (release.innerHTML === "发布问卷") {
+      if (link.value !== "" && date.value !== "") {
+        jsonData.type = "question"
+        restoreData.deadline = date.value
+        restoreData.links = link.value
+        jsonData.data = restoreData
+        jsonString = JSON.stringify(jsonData)
+      } else {
+        alert("你还没填完！")
+      }
+    } else {
+      if (link.value !== "" && date.value !== "") {
+        jsonData.type = "question"
+        restoreData.deadline = date.value
+        restoreData.links = link.value
+        jsonData.data = restoreData
+        jsonString = JSON.stringify(jsonData)
+      } else {
+        alert("你还没填完！")
+      }
     }
-  } else {
-    data = {
-      "type": "vote",
-      "data": links
-    }
-  }
-  request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
-      if (request.responseText.err === 0) {
-        if (release.innerHTML === "发布问卷") {
+    request.onreadystatechange = function () {
+      if (request.readyState === 4 && request.status === 200) {
+        if (request.responseText.err === 0 && release.innerHTML === "发布问卷") {
+          alert('发布成功')
           window.open('questionnaire.html', '_self')
-        } else {
+        } else if (request.responseText.err === 0 && release.innerHTML === "发布投票") {
+          alert('发布成功')
           window.open('vote.html', '_self')
+        } else {
+          alert('发布失败!')
         }
       }
     }
-  }
-  request.send(data)
+    request.send(jsonString)
+  })
 }
 //长按删除列表
 function deleteItem() {

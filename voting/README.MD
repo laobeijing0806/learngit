@@ -7,8 +7,8 @@ GET /check
 返回示例
 {
     check_day: 1, 
-    checked=true, 
-    last_check_time=111111111
+    checked: true, 
+    last_check_time: 111111111
 }
 ```
 

@@ -163,14 +163,14 @@ button {
   display: table-cell;
   vertical-align: middle;
   color: #7e7e83;
-  width: 57%;
+  width: 51%;
   font-size: 1.5rem;
 }
 
 .deadline {
   display: table-cell;
   vertical-align: middle;
-  width: 30%;
+  width: 35%;
   font-size: 1.2rem;
   color: #7e7e83;
 }
