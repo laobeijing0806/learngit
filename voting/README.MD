@@ -72,6 +72,7 @@ GET /all
         "data": "{\"a\": 1}",             <------这里是新建的时候储存的data
         "id": 1,                          <------问卷/投票的ID
         "last_change_time": 1484568355,   <------上次修改时间
+        "nickname": "test",
         "type": "wenjuan"                 <------类型，问卷（问卷）还是投票（vote）
       }
     ]

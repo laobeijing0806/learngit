@@ -9,43 +9,60 @@ window.onload = function () {
     body.style.minHeight = deviceWidth + 'px'
   }
   tapEvent()
+  display()
   button()
   signIn()
   deleteItem()
 }
 
-//列表渲染
-function display(userName) {
+//页面加载时列表渲染
+function display() {
   var list = document.getElementById('list')
   if (!list) return false
+  var whichPage = document.getElementsByTagName('h2')[0]
   var request = new XMLHttpRequest()
   request.open('GET', '/all', true)
   request.send(null)
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-      for (var i = 0; i < request.responseText.result.num; i++) {
-        var items = document.createElement('li')
-        var links = document.createElement('a')
-        var userRelease = document.createElement('span')
-        var deadline = document.createElement('span')
-        var icon = document.createElement('span')
-        userRelease.setAttribute('class', 'user-release')
-        if (request.responseText.result.qvs[0].type === "wenjuan") {
-          userRelease.innerHTML = userName + '发布的问卷' 
-        } else {
-          userRelease.innerHTML = userName + '发布的投票'
+      var jsonobj = JSON.parse(request.responseText)
+      for (var i = 0; i < jsonobj.result.num; i++) {
+        if (whichPage.innerHTML === "发布的问卷") {
+          if (jsonobj.result.qvs[i].type === "wenjuan") {
+            renderList(i)
+          }
+        } else if (whichPage.innerHTML === "发布的投票") {
+          if (jsonobj.result.qvs[i].type === "vote") {
+            renderList(i)
+          }
+        } else if (whichPage.innerHTML === "我发布的") {
+          renderList(i)
         }
-        deadline.setAttribute('class', 'deadline')
-        deadline.innerHTML = '(' + request.responseText.result.qvs[0].last_change_time + '到期)' 
-        icon.setAttribute('class', 'icon')
-        links.appendChild(userRelease)
-        links.appendChild(deadline)
-        links.appendChild(icon)
-        links.setAttribute('href', request.responseText.result.qvs[0].data)
-        items.appendChild(links)
-        list.appendChild(items)
       }
     }
+  }
+  //渲染列表
+  function renderList (i) {
+    var items = document.createElement('li')
+    var links = document.createElement('a')
+    var userRelease = document.createElement('span')
+    var deadline = document.createElement('span')
+    var icon = document.createElement('span')
+    userRelease.setAttribute('class', 'user-release')
+    if (jsonobj.result.qvs[i].type === "wenjuan") {
+      userRelease.innerHTML = jsonobj.result.qvs[i].nickname + '发布的问卷' 
+    } else {
+      userRelease.innerHTML = jsonobj.result.qvs[i].nickname + '发布的投票'
+    }
+    deadline.setAttribute('class', 'deadline')
+    deadline.innerHTML = '(' + JSON.parse(jsonobj.result.qvs[i].data).date + '到期)' 
+    icon.setAttribute('class', 'icon')
+    links.appendChild(userRelease)
+    links.appendChild(deadline)
+    links.appendChild(icon)
+    links.setAttribute('href', JSON.parse(jsonobj.result.qvs[i].data).link)
+    items.appendChild(links)
+    list.appendChild(items)
   }
 }
 
@@ -179,13 +196,13 @@ function release() {
   request.open('POST', '/new', true)
   if (release.innerHTML === "发布问卷") {
     data = {
-      type: "question",
-      data: links
+      "type": "question",
+      "data": "{\"deadline\": \"2017.2.31\", \"links\": \"http://www.baidu.com\"}"
     }
   } else {
     data = {
-      type: "vote",
-      data: links
+      "type": "vote",
+      "data": links
     }
   }
   request.onreadystatechange = function () {
@@ -207,6 +224,13 @@ function deleteItem() {
   var list = document.getElementById('list')
   if (!list) return false
   var item = list.getElementsByTagName('li')
+  var ban = list.getElementsByTagName('a')
+  //禁止a标签的默认行为
+  for (var i = 0; i < ban.length; i++) {
+    ban[i].onclick = function () {
+      return false
+    }
+  }
   for (var i = 0; i < item.length; i++) {
     item[i].addEventListener('touchstart', function () {
       time = setTimeout(remove, 500, this)
@@ -217,7 +241,7 @@ function deleteItem() {
       if (time != 0) {
         var links = this.getElementsByTagName('a')[0].getAttribute('href')
         var skip = confirm('确认前往该页面吗？')
-        if (skip) {
+        if (skip === true) {
           window.open(links, '_self')
         } else {
           return false
