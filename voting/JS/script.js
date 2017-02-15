@@ -2,11 +2,14 @@ window.onload = function () {
   // 自动识别设备高度，并设置
   var deviceWidth = document.documentElement.clientHeight
   var body = document.getElementsByTagName('body')[0]
+  var layer = document.getElementsByClassName('position-layer')[0]
   var main = document.getElementsByClassName('main-page')[0]
   if (main) {
     main.style.minHeight = deviceWidth + 'px'
+    layer.style.minHeight = deviceWidth + 'px'
   } else {
     body.style.minHeight = deviceWidth + 'px'
+    layer.style.minHeight = deviceWidth + 'px'
   }
   tapEvent()
   display()
@@ -26,27 +29,38 @@ function display() {
   request.open('GET', '/all', true)
   request.send(null)
   request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
-      var jsonobj = JSON.parse(request.responseText)
-      for (var i = 0; i < jsonobj.result.num; i++) {
-        if (whichPage.innerHTML === "发布的问卷") {
-          if (jsonobj.result.qvs[i].type === "wenjuan") {
-            renderList(i)
+      if (request.readyState === 4 && request.status === 200) {
+        var jsonobj = request.responseText
+        for (var i = 0; i < jsonobj.result.num; i++) {
+          if (whichPage.innerHTML === "发布的问卷") {
+            if (jsonobj.result.qvs[i].type === "wenjuan") {
+              renderList(i, jsonobj)
+            }
+          } else if (whichPage.innerHTML === "发布的投票") {
+            if (jsonobj.result.qvs[i].type === "vote") {
+              renderList(i, jsonobj)
+            }
+          } else if (whichPage.innerHTML === "我发布的") {
+            var username = jsonobj.result.qvs[i].nickname
+            request.open('GET', '/user/info', true)
+            request.send(null)
+            request.onreadystatechange = function () {
+              if (request.readyState === 4 && request.status === 200) {
+                if (request.responseText.nickname === username) {
+                  renderList(i, jsonobj)
+                }
+              } else {
+                return false
+              }
+            }
           }
-        } else if (whichPage.innerHTML === "发布的投票") {
-          if (jsonobj.result.qvs[i].type === "vote") {
-            renderList(i)
-          }
-        } else if (whichPage.innerHTML === "我发布的") {
-          renderList(i)
         }
+      } else {
+        return false
       }
-    } else {
-      return false
     }
-  }
-  //渲染列表
-  function renderList (i) {
+    //渲染列表
+  function renderList(i, jsonobj) {
     var items = document.createElement('li')
     var links = document.createElement('a')
     var userRelease = document.createElement('span')
@@ -54,18 +68,19 @@ function display() {
     var icon = document.createElement('span')
     userRelease.setAttribute('class', 'user-release')
     if (jsonobj.result.qvs[i].type === "wenjuan") {
-      userRelease.innerHTML = jsonobj.result.qvs[i].nickname + '发布的问卷' 
+      userRelease.innerHTML = jsonobj.result.qvs[i].nickname + '发布的问卷'
     } else {
       userRelease.innerHTML = jsonobj.result.qvs[i].nickname + '发布的投票'
     }
     deadline.setAttribute('class', 'deadline')
-    deadline.innerHTML = '（' + JSON.parse(jsonobj.result.qvs[i].data).date + '到期）' 
+    deadline.innerHTML = '（' + JSON.parse(jsonobj.result.qvs[i].data).date + '到期）'
     icon.setAttribute('class', 'icon')
     links.appendChild(userRelease)
     links.appendChild(deadline)
     links.appendChild(icon)
     links.setAttribute('href', JSON.parse(jsonobj.result.qvs[i].data).link)
     items.appendChild(links)
+    items.setAttribute('id', jsonobj.result.qvs[i].id)
     list.appendChild(items)
   }
 }
@@ -150,7 +165,7 @@ function signIn() {
   request.open('GET', '/check', true)
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-      var jsonobj = JSON.parse(request.responseText)
+      var jsonobj = request.responseText
       if (jsonobj.checked !== true) {
         signIn.addTapEvent(function () {
           signIn.innerHTML = '签到成功!'
@@ -179,7 +194,7 @@ function refreshUserInfo() {
   request.open('GET', '/user/info', true)
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-      var jsonobj = JSON.parse(request.responseText)
+      var jsonobj = request.responseText
       var photo = document.getElementsByClassName('user-photo')[0]
       var name = document.getElementsByClassName('user-name')[0]
       var point = document.getElementById('points')
@@ -197,48 +212,56 @@ function refreshUserInfo() {
 function release() {
   var release = document.getElementById('release')
   if (!release) return false
-  var link = document.getElementsByTagName('textarea')[0]
-  var date = document.getElementsByTagName('input')[0]
-  var jsonData = {}, restoreData = {}
+  var links = document.getElementsByTagName('textarea')[0]
+  var deadline = document.getElementsByTagName('input')[0]
+  var jsonData = {},
+    restoreData = {}
   var jsonString
   release.addTapEvent(function () {
-    var request = new XMLHttpRequest()
-    request.open('POST', '/new', true)
-    if (release.innerHTML === "发布问卷") {
-      if (link.value !== "" && date.value !== "") {
-        jsonData.type = "question"
-        restoreData.deadline = date.value
-        restoreData.links = link.value
-        jsonData.data = restoreData
-        jsonString = JSON.stringify(jsonData)
-      } else {
-        alert("你还没填完！")
-      }
-    } else {
-      if (link.value !== "" && date.value !== "") {
-        jsonData.type = "question"
-        restoreData.deadline = date.value
-        restoreData.links = link.value
-        jsonData.data = restoreData
-        jsonString = JSON.stringify(jsonData)
-      } else {
-        alert("你还没填完！")
-      }
-    }
-    request.onreadystatechange = function () {
-      if (request.readyState === 4 && request.status === 200) {
-        if (request.responseText.err === 0 && release.innerHTML === "发布问卷") {
-          alert('发布成功')
-          window.open('questionnaire.html', '_self')
-        } else if (request.responseText.err === 0 && release.innerHTML === "发布投票") {
-          alert('发布成功')
-          window.open('vote.html', '_self')
+    var url = links.value
+    var reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/
+    if (reg.test(url)) {
+      var request = new XMLHttpRequest()
+      request.open('POST', '/new', true)
+      if (release.innerHTML === "发布问卷") {
+        if (links.value !== "" && deadline.value !== "") {
+          jsonData.type = "question"
+          restoreData.date = deadline.value
+          restoreData.link = links.value
+          jsonData.data = restoreData
+          jsonString = JSON.stringify(jsonData)
+          request.send(jsonString)
         } else {
-          alert('发布失败!')
+          alert("你还没填完！")
+        }
+      } else {
+        if (links.value !== "" && deadline.value !== "") {
+          jsonData.type = "question"
+          restoreData.date = deadline.value
+          restoreData.link = links.value
+          jsonData.data = restoreData
+          jsonString = JSON.stringify(jsonData)
+          request.send(jsonString)
+        } else {
+          alert("你还没填完！")
         }
       }
+      request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+          if (request.responseText.err === 0 && release.innerHTML === "发布问卷") {
+            alert('发布成功')
+            window.open('questionnaire.html', '_self')
+          } else if (request.responseText.err === 0 && release.innerHTML === "发布投票") {
+            alert('发布成功')
+            window.open('vote.html', '_self')
+          } else {
+            alert('发布失败!')
+          }
+        }
+      }
+    } else {
+      alert('这不是有效链接')
     }
-    request.send(jsonString)
   })
 }
 //长按删除列表
@@ -248,40 +271,59 @@ function deleteItem() {
   if (!list) return false
   var item = list.getElementsByTagName('li')
   var ban = list.getElementsByTagName('a')
-  //禁止a标签的默认行为
+    //禁止a标签的默认行为
   for (var i = 0; i < ban.length; i++) {
     ban[i].onclick = function () {
       return false
     }
   }
   for (var i = 0; i < item.length; i++) {
+    //当按住长达500ms时判断为长按，触发删除功能
     item[i].addEventListener('touchstart', function () {
-      time = setTimeout(remove, 500, this)
-      return false
-    })
+        time = setTimeout(remove, 500, this)
+        return false
+      })
+      //不足500ms判断为点击事件
     item[i].addEventListener('touchend', function () {
-      clearTimeout(time)
-      if (time != 0) {
-        var links = this.getElementsByTagName('a')[0].getAttribute('href')
-        var skip = confirm('确认前往该页面吗？')
-        if (skip === true) {
-          window.open(links, '_self')
-        } else {
-          return false
+        clearTimeout(time)
+        if (time != 0) {
+          var links = this.getElementsByTagName('a')[0].getAttribute('href')
+          var skip = confirm('确认前往该页面吗？')
+          if (skip === true) {
+            window.open(links, '_self')
+          } else {
+            return false
+          }
         }
-      }
-      return false
-    })
+        return false
+      })
+      //如果按住过程中移动，则不触发长按
     item[i].addEventListener('touchmove', function () {
       clearTimeout(time)
       time = 0
     })
   }
+  //删除
   function remove(elem) {
     time = 0
-    var k = confirm('确定删除吗？')
-    if (k) {
-      list.removeChild(elem)
+    var id = elem.getAttribute('id')
+    var sure = confirm('确定删除吗？')
+    if (sure) {
+      var request = new XMLHttpRequest()
+      request.open('DELETE', '/qv?id=' + id, true)
+      request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+          if (request.responseText.err === 0) {
+            list.removeChild(elem)
+            return false
+          } else if (request.err === 403) {
+            alert(request.responseText.msg)
+          }
+        } else {
+          return false
+        }
+      }
+      request.send(null)
     } else {
       return false
     }
