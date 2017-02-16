@@ -72,6 +72,7 @@ button {
   position: fixed;
   width: 100%;
   top: 0;
+  bottom: 0;
   left: 0;
 }
 
@@ -80,10 +81,26 @@ button {
   position: absolute;
   background-color: #fff;
   box-shadow: 0 -0.1rem #dbdbe0;
+  -webkit-box-shadow: 0 -0.1rem #dbdbe0;
   bottom: 0;
 }
 
 .menu ul li {
+  float: left;
+  width: 33.3%;
+  text-align: center;
+}
+
+.menu-normal {
+  width: 100%;
+  position: fixed;
+  background-color: #fff;
+  box-shadow: 0 -0.1rem #dbdbe0;
+  -webkit-box-shadow: 0 -0.1rem #dbdbe0;
+  bottom: 0;
+}
+
+.menu-normal ul li {
   float: left;
   width: 33.3%;
   text-align: center;
@@ -142,8 +159,6 @@ button {
 
 .content {
   margin-top: 2.5rem;
-  position: relative;
-  z-index: 999;
 }
 
 .content ul {
@@ -375,14 +390,16 @@ button.success {
 
 .user-photo {
   display: block;
-  width: 13rem;
-  height: 13rem;
+  width: 11rem;
+  height: 11rem;
   margin: 0 auto;
+  border-radius: 50%;
 }
 
 .user-name {
   font-size: 1.5rem;
   color: #7e7e83;
+  margin-top: 1rem;
 }
 
 .score {
