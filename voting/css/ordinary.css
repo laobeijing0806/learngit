@@ -375,6 +375,7 @@ button.success {
   z-index: 999;
   background: url('../pic/addOnePoint.png') no-repeat center center;
   background-size: contain;
+  -webkit-background-size: contain;
   top: -1rem;
   right: -1rem;
 }
@@ -394,6 +395,8 @@ button.success {
   height: 11rem;
   margin: 0 auto;
   border-radius: 50%;
+  box-shadow: 0 0.7rem 0.7rem #d9d9d9;
+  -webkit-box-shadow: 0 0.7rem 0.7rem #d9d9d9;
 }
 
 .user-name {

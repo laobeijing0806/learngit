@@ -6,10 +6,9 @@ window.onload = function () {
   var main = document.getElementsByClassName('main-page')[0]
   if (main) {
     main.style.minHeight = deviceWidth + 'px'
-    // layer.style.minHeight = deviceWidth + 'px'
   } else {
     body.style.minHeight = deviceWidth + 'px'
-    // layer.style.minHeight = deviceWidth + 'px'
+    layer.style.minHeight = deviceWidth + 'px'
   }
   tapEvent()
   display()
@@ -17,7 +16,7 @@ window.onload = function () {
   refreshUserInfo()
   signIn()
   release()
-  setTimeout(deleteItem, 100)
+  setTimeout(deleteItem, 1000)
 }
 
 //页面加载时列表渲染
@@ -33,7 +32,7 @@ function display() {
       var jsonobj = JSON.parse(request.responseText)
       for (var i = 0; i < jsonobj.result.num; i++) {
         if (whichPage.innerHTML === "发布的问卷") {
-          if (jsonobj.result.qvs[i].type === "wenjuan") {
+          if (jsonobj.result.qvs[i].type === "question") {
             renderList(i, jsonobj)
           }
         } else if (whichPage.innerHTML === "发布的投票") {
@@ -52,7 +51,6 @@ function display() {
   //获取当前用户名字，判断该数据是否由当前用户创建
   function getUserName(i, jsonobj, username) {
     var getName = new XMLHttpRequest()
-    var useful
     getName.open('GET', '/user/info', true)
     getName.onreadystatechange = function () {
       if (getName.readyState === 4 && request.status === 200) {
@@ -73,7 +71,7 @@ function display() {
     var deadline = document.createElement('span')
     var icon = document.createElement('span')
     userRelease.setAttribute('class', 'user-release')
-    if (jsonobj.result.qvs[i].type === "wenjuan") {
+    if (jsonobj.result.qvs[i].type === "question") {
       userRelease.innerHTML = jsonobj.result.qvs[i].nickname + '发布的问卷'
     } else {
       userRelease.innerHTML = jsonobj.result.qvs[i].nickname + '发布的投票'
@@ -234,7 +232,7 @@ function release() {
           jsonData.type = "question"
           restoreData.date = deadline.value
           restoreData.link = links.value
-          jsonData.data = JSON.stringify(restoreData)
+          jsonData.data = restoreData
           jsonString = JSON.stringify(jsonData)
           request.send(jsonString)
         } else {
@@ -245,7 +243,7 @@ function release() {
           jsonData.type = "vote"
           restoreData.date = deadline.value
           restoreData.link = links.value
-          jsonData.data = JSON.stringify(restoreData)
+          jsonData.data = restoreData
           jsonString = JSON.stringify(jsonData)
           request.send(jsonString)
         } else {
@@ -277,6 +275,12 @@ function deleteItem() {
   var list = document.getElementById('list')
   if (!list) return false
   var item = list.getElementsByTagName('li')
+  var click = list.getElementsByTagName('a')
+  for (var i = 0; i < click.length; i++) {
+    click[i].onclick = function () {
+      return false
+    }
+  }
   for (var i = 0; i < item.length; i++) {
     //当按住长达500ms时判断为长按，触发删除功能
     item[i].addEventListener('touchstart', function () {
